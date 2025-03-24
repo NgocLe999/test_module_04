@@ -18,6 +18,6 @@ import java.util.List;
 @Repository
 public interface ITransactionRepository extends JpaRepository<Transactions, Long> {
 
-    @Query(value = "SELECT * FROM transactions t WHERE t.customer.name LIKE %:name% AND t.type = :type", nativeQuery = true)
-    List<Transactions> findTransactionsByCustomerNameAndType(@Param("name") String name, @Param("type") String type);
+    @Query("SELECT trans FROM transactions trans where trans.customer.name LIKE %:name% and trans.type = :type")
+    List<Transactions> findTransactionsByCustomerNameAndType(  @Param("name") String name, @Param("type") String type);
 }
