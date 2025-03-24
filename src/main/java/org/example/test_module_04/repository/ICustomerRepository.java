@@ -13,8 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer> {
 
-    Page<Customer> findAllByNameContaining(String name, PageRequest of);
-
-    Page<Customer> findAll(Specification<Customer> spec, Pageable page);
 
 }

@@ -76,6 +76,7 @@ public class TransactionController {
             redirectAttributes.addFlashAttribute("listErrorMes", listErrorsMes);
             return "redirect:/trans/createView";
         }
+        System.out.println(trans);
         transactionService.save(trans);
         redirectAttributes.addFlashAttribute("message", "Thêm mới thành công!");
         return "redirect:/trans/list";
@@ -84,16 +85,36 @@ public class TransactionController {
     @GetMapping(value = "/details/{id}")
     public String showView(Model model, @PathVariable("id") long id) {
         try {
-            Transactions trans = transactionService.findById(id);
-            if (trans == null) {
-                model.addAttribute("message", "Thuốc không tồn tại trên hệ thống");
+            Transactions transactions = transactionService.findById(id);
+            if (transactions == null) {
+                model.addAttribute("message", "Giao dịch không tồn tại trên hệ thống");
             }
-            model.addAttribute("trans", trans);
+            model.addAttribute("transactions", transactions);
         } catch (Exception e) {
             System.err.println("Error fetching medicines: " + e.getMessage());
             model.addAttribute("errorMessage", "Gặp lỗi trong quá trình truy xuất database");
         }
         return "details";
     }
+
+    @GetMapping("/details/delete/{id}")
+    public String deleteTrans(@PathVariable("id") Long id,
+                                RedirectAttributes redirectAttributes) {
+        transactionService.remove(id);
+        redirectAttributes.addFlashAttribute("message", "Xóa thành công!");
+        return "redirect:/trans/list";
+    }
+
+    @GetMapping("/search/{name}/{type}")
+    public String searchTrans(@PathVariable String name, @PathVariable String type, Model model) {
+        if(name.isEmpty() || type.isEmpty()) {
+            return "redirect:/trans/list";
+        }
+        List<Transactions> listTransaction = transactionService.findByTypeAndCustomer(name,type);
+        System.out.println(listTransaction);
+        model.addAttribute("listTransaction", listTransaction);
+        return "list";
+    }
+
 
 }

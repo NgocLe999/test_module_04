@@ -17,10 +17,6 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@SQLDelete(sql = "UPDATE customers SET deleted_at = Now() WHERE id=?")
-////@Where(clause = "deleted_at is null")
-//@FilterDef(name = "notDeletedMedicineFilter")
-//@Filter(name = "notDeletedMedicineFilter", condition = "deleted_at IS NULL")
 public class Customer {
 
     @Id
@@ -46,6 +42,5 @@ public class Customer {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @CreationTimestamp
     private LocalDateTime createdAt;
-
 
 }

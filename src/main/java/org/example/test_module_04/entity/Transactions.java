@@ -1,10 +1,7 @@
 package org.example.test_module_04.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +9,8 @@ import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity(name = "transactions")
@@ -19,32 +18,31 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@SQLDelete(sql = "UPDATE transactions SET deleted_at = Now() WHERE id=?")
-////@Where(clause = "deleted_at is null")
-//@FilterDef(name = "notDeletedMGFilter")
-//@Filter(name = "notDeletedMGFilter", condition = "deleted_at IS NULL")
 public class Transactions {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(name = "id")
     private Integer id;
 
-    @NotBlank(message = "Mã thuốc không được để trống")
     @Column(name = "date_transaction")
-    private LocalDateTime dateTransaction;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Future(message = "Ngày hết hạn phải lớn hơn thời gian hiện tại")
+    private LocalDate dateTransaction;
 
     @NotBlank(message = "Loại dịch vụ không được để trống")
     @Column(name = "type_service")
     private String type;
 
-    @NotBlank(message = "Giá thuê không được để trống")
     @Column(name = "price")
-    private String price;
+    @NotNull(message = "Giá thuê không được để trống")
+    @Min(value = 500000,message = "Đơn giá phải lớn hơn 500.000đ")
+    private Integer price;
 
-    @NotBlank(message = "Giá thuê không được để trống")
     @Column(name = "area")
-    private String area;
+    @NotNull(message = "Giá thuê không được để trống")
+    @Min(value = 20,message = "Diện tích phải lớn hơn 20m2")
+    private Integer area;
 
     @NotNull
     @ManyToOne

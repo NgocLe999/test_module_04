@@ -1,11 +1,11 @@
 package org.example.test_module_04.service.impl;
 
+import jakarta.transaction.Transaction;
+import jakarta.transaction.Transactional;
 import org.example.test_module_04.entity.Transactions;
 import org.example.test_module_04.repository.ITransactionRepository;
 import org.example.test_module_04.service.ITransaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +22,7 @@ public class TransactionService implements ITransaction {
     }
 
     @Override
+    @Transactional
     public void save(Transactions s) {
         transactionRepository.save(s);
     }
@@ -33,16 +34,21 @@ public class TransactionService implements ITransaction {
 
     @Override
     public void remove(Long id) {
+        transactionRepository.deleteById(id);
 
     }
 
     @Override
     public Transactions findById(long id) {
-        return null;
+        return transactionRepository.findById(id).get();
     }
 
     @Override
     public List<Transactions> findByName(String name) {
         return List.of();
+    }
+
+    public List<Transactions> findByTypeAndCustomer(String type, String name) {
+        return transactionRepository.findTransactionsByCustomerNameAndType(type, name);
     }
 }

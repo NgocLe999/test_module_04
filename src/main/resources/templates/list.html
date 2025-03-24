@@ -114,7 +114,6 @@
                                                 </tr>
                                                 <tr th:each="transaction : ${listTransaction}">
                                                     <td th:text="${transaction.id}"></td>
-<!--                                                    <td th:text="${transaction.customer.name == null ? transaction.customer.name : 'Không' }"></td>-->
                                                     <td th:text="${transaction.customer.name}"></td>
                                                     <td th:text="${transaction.dateTransaction}"></td>
                                                     <td th:text="${transaction.type}"></td>

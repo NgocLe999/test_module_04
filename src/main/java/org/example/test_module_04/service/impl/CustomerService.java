@@ -50,6 +50,6 @@ public class CustomerService implements ICustomer {
 
     @Override
     public List<Customer> findByName(String name) {
-        return List.of();
+        return null;
     }
 }
