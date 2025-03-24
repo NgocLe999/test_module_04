@@ -69,14 +69,13 @@ public class TransactionController {
 
 
     @PostMapping("/created")
-    public String createCustomer(
+    public String createTrans(
             @Validated @ModelAttribute("transactions") Transactions trans, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
             Map<String, String> listErrorsMes = ValidationMessage.getErrorMes(bindingResult);
             redirectAttributes.addFlashAttribute("listErrorMes", listErrorsMes);
             return "redirect:/trans/createView";
         }
-        trans.setDateTransaction(String.valueOf(LocalDateTime.now()));
         transactionService.save(trans);
         redirectAttributes.addFlashAttribute("message", "Thêm mới thành công!");
         return "redirect:/trans/list";

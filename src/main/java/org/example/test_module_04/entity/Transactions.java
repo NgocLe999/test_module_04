@@ -32,7 +32,7 @@ public class Transactions {
 
     @NotBlank(message = "Mã thuốc không được để trống")
     @Column(name = "date_transaction")
-    private String dateTransaction;
+    private LocalDateTime dateTransaction;
 
     @NotBlank(message = "Loại dịch vụ không được để trống")
     @Column(name = "type_service")
