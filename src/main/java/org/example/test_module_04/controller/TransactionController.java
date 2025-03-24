@@ -52,7 +52,7 @@ public class TransactionController {
 
 
    @GetMapping("/createView")
-    public String createCustomer(Model model,
+    public String createTrans(Model model,
                                  @ModelAttribute("listErrorMes") Map<String, String> listErrorMes
     ) {
         if (listErrorMes == null || listErrorMes.isEmpty()) {

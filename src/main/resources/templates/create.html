@@ -20,39 +20,45 @@
                         <form th:action="@{/trans/created}" th:object="${transactions}" method="post">
                             <div class="mb-3">
                                 <label for="id" class="form-label">Mã giao dịch</label>
-                                <input type="text" class="form-control" id="id" name="id"/>
+                                <input  th:field="*{id}" th:value="*{id}" type="text" class="form-control" id="id" name="id"/>
                             </div>
                             <div class="mb-3">
                                 <label>Tên khách hàng</label>
-                                <select th:field="*{medicineGroup}" id="medicineGroup" class="form-control"
-                                        th:classappend="${listErrorMes.containsKey('medicineGroup')} ? 'is-invalid' : ''">
+                                <select th:field="*{customer}" id="medicineGroup" class="form-control">
                                     <option th:value="null" selected>Chọn khách hàng</option>
-                                    <option th:each="group : ${medicineGroups}" th:value="${group.id}"
+                                    <option th:each="group : ${customers}" th:value="${group.id}"
                                             th:text="${group.name}"></option>
                                 </select>
                             </div>
                             <div class="mb-3 d-flex justify-content-between">
+                                <span>Loại bất động sản:</span>
                                 <label style="display: inline-block; margin-right: 10px;">
-                                    <input type="checkbox" name="propertyType" value="land"> Đất
+                                    <input th:field="*{type}" th:value="*{type}" type="checkbox" name="propertyType" value="land"> Đất
                                 </label>
                                 <label style="display: inline-block; margin-right: 10px;">
-                                    <input type="checkbox" name="propertyType" value="house"> Nhà đất
+                                    <input th:field="*{type}" th:value="*{type}" type="checkbox" name="propertyType" value="house"> Nhà đất
                                 </label>
                             </div>
                             <div class="mb-3">
                                 <label  class="form-label">Ngày giao dịch </label>
-                                <input type="date" class="form-control" id="address3" name="address"/>
+                                <input th:field="*{dateTransaction}" th:value="*{dateTransaction}" type="date" class="form-control" id="address3" name="address"/>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Đơn giá (VND)</label>
-                                <input type="text" class="form-control" id="address1" name="address"/>
+                                <input  th:field="*{price}" th:value="*{price}" type="text" class="form-control" id="address1" name="address"/>
                             </div>
-
                             <div class="mb-3">
                                 <label  class="form-label">Diện tích (m2)</label>
-                                <input type="text" class="form-control" id="address2" name="address"/>
+                                <input th:field="*{area}" th:value="*{area}" type="text" class="form-control" id="address2" name="address"/>
                             </div>
                             <button type="submit" class="btn btn-primary">Thêm mới</button>
+                            <div class="form-group d-inline-block">
+                                <a th:onclick="|window.location.href='/trans/list'|"
+                                   class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Trở về
+                                </a>
+                            </div>
                         </form>
                     </div>
                 </div>
